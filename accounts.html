@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Accounts | SecureBank</title>
+    <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+    <div class="layout">
+        <div id="sidebar-root"></div>
+        <div class="main">
+            <div id="topbar-root"></div>
+            <div class="content">
+
+                <div class="toolbar">
+                    <div class="search-box">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+                        <input type="text" id="searchInput" placeholder="Search by account number or customer..." />
+                    </div>
+                    <div class="flex">
+                        <span class="toolbar-meta" id="countMeta"></span>
+                        <button class="btn" onclick="openAccountModal()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M5 12h14"/></svg> Open Account</button>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="table-wrap" id="accountsTable">
+                        <div class="loading-row">Loading accounts...</div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="overlay-backdrop" id="backdrop"></div>
+    <div id="toast-container"></div>
+
+    <!-- ============ CREATE / EDIT MODAL ============ -->
+    <div class="modal-overlay" id="accountModal" onclick="openModalIfEscaped(event)">
+        <div class="modal">
+            <div class="modal-header">
+                <h3 id="accountModalTitle">Open Account</h3>
+                <button class="modal-close" onclick="closeModal('accountModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" id="accountId" />
+                <div class="form-group">
+                    <label>Customer *</label>
+                    <select id="aCustomer"></select>
+                </div>
+                <div class="form-group">
+                    <label>Account type</label>
+                    <select id="aType">
+                        <option value="savings">Savings</option>
+                        <option value="current">Current</option>
+                        <option value="fixed_deposit">Fixed Deposit</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Initial deposit</label>
+                    <input type="number" id="aInitial" min="0" step="0.01" placeholder="0.00" />
+                    <div class="form-help">Optional amount credited when the account is opened.</div>
+                </div>
+                <div class="form-group">
+                    <label>Status</label>
+                    <select id="aStatus">
+                        <option value="active">Active</option>
+                        <option value="dormant">Dormant</option>
+                        <option value="closed">Closed</option>
+                    </select>
+                </div>
+                <div class="form-error" id="accountError"></div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-ghost" onclick="closeModal('accountModal')">Cancel</button>
+                <button class="btn" id="saveAccountBtn" onclick="saveAccount()">Save account</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============ DELETE CONFIRM ============ -->
+    <div class="modal-overlay" id="deleteModal" onclick="openModalIfEscaped(event)">
+        <div class="modal" style="max-width:400px">
+            <div class="modal-header"><h3>Delete account?</h3></div>
+            <div class="modal-body">
+                <p>Delete account <b id="delAccNumber"></b> and its transaction history?</p>
+                <div class="form-error" id="deleteError"></div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-ghost" onclick="closeModal('deleteModal')">Cancel</button>
+                <button class="btn btn-danger" id="deleteBtn" onclick="deleteAccount()">Delete</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="vendor/supabase.js"></script>
+    <script src="js/config.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/common.js"></script>
+    <script src="js/accounts.js"></script>
+</body>
+</html>

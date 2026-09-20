@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Transfers | SecureBank</title>
+    <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+    <div class="layout">
+        <div id="sidebar-root"></div>
+        <div class="main">
+            <div id="topbar-root"></div>
+            <div class="content">
+
+                <div class="grid-2">
+                    <!-- transfer form -->
+                    <div class="card">
+                        <div class="card-header">
+                            <div>
+                                <h2>Transfer Money</h2>
+                                <div class="sub">Move funds between two bank accounts</div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>From account *</label>
+                            <select id="fromAccount"></select>
+                        </div>
+                        <div class="form-group">
+                            <label>Available balance</label>
+                            <div class="stat-value" id="fromBalance">-</div>
+                        </div>
+                        <div class="form-group">
+                            <label>To account number *</label>
+                            <div class="flex">
+                                <input type="text" id="toAccountNumber" placeholder="e.g. ACC-1000000001" style="flex:1" />
+                                <button class="btn btn-ghost" onclick="verifyTarget()">Verify</button>
+                            </div>
+                            <div class="form-help" id="toAccountInfo">Hint: sample accounts include ACC-1000000001 ... ACC-5000000001</div>
+                        </div>
+                        <div class="form-group">
+                            <label>Amount (₹) *</label>
+                            <input type="number" id="transferAmount" min="0.01" step="0.01" placeholder="0.00" />
+                        </div>
+                        <div class="form-group">
+                            <label>Remarks (optional)</label>
+                            <input type="text" id="transferRemarks" placeholder="e.g. Rent, school fee" />
+                        </div>
+                        <div class="form-error" id="transferError"></div>
+                        <button class="btn btn-block" id="transferBtn" onclick="submitTransfer()">Transfer Money</button>
+                    </div>
+
+                    <!-- recent transfers -->
+                    <div class="card">
+                        <div class="card-header">
+                            <div>
+                                <h2>Recent Transfers</h2>
+                                <div class="sub" id="recentMeta">Select an account</div>
+                            </div>
+                        </div>
+                        <div class="table-wrap" id="recentTransfers">
+                            <div class="table-empty">Select an account to see recent transfers.</div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="overlay-backdrop" id="backdrop"></div>
+    <div id="toast-container"></div>
+
+    <script src="vendor/supabase.js"></script>
+    <script src="js/config.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/common.js"></script>
+    <script src="js/transfers.js"></script>
+</body>
+</html>

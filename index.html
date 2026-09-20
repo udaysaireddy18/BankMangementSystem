@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login | SecureBank</title>
+    <link rel="stylesheet" href="css/style.css" />
+</head>
+<body class="auth-body">
+
+    <div class="auth-card">
+        <div class="brand-login">
+            <div class="brand-logo">SB</div>
+            <h1>SecureBank</h1>
+            <p>Bank Management System &middot; DBMS Project</p>
+        </div>
+
+        <!-- Tab switch -->
+        <div class="auth-tabs">
+            <button class="auth-tab active" id="tabLogin" onclick="switchTab('login')">Login</button>
+            <button class="auth-tab" id="tabRegister" onclick="switchTab('register')">Register</button>
+        </div>
+
+        <!-- ============ LOGIN FORM ============ -->
+        <form id="loginForm" novalidate>
+            <div class="form-group">
+                <label for="loginEmail">Email address</label>
+                <input type="email" id="loginEmail" placeholder="you@example.com" required />
+            </div>
+            <div class="form-group">
+                <label for="loginPassword">Password</label>
+                <input type="password" id="loginPassword" placeholder="Enter your password" required />
+            </div>
+            <div class="form-error" id="loginError"></div>
+            <button type="submit" class="btn btn-block" id="loginBtn">Sign in</button>
+        </form>
+
+        <!-- ============ REGISTER FORM ============ -->
+        <form id="registerForm" novalidate class="hidden">
+            <div class="form-group">
+                <label for="regName">Full name</label>
+                <input type="text" id="regName" placeholder="e.g. John Doe" required />
+            </div>
+            <div class="form-group">
+                <label for="regEmail">Email address</label>
+                <input type="email" id="regEmail" placeholder="you@example.com" required />
+            </div>
+            <div class="form-group">
+                <label for="regPhone">Phone number</label>
+                <input type="tel" id="regPhone" placeholder="10-digit mobile number" required />
+            </div>
+            <div class="form-group">
+                <label for="regAddress">Address <span class="muted">(optional)</span></label>
+                <input type="text" id="regAddress" placeholder="Street, City" />
+            </div>
+            <div class="form-group">
+                <label for="regPassword">Password</label>
+                <input type="password" id="regPassword" placeholder="Min 6 characters" required />
+            </div>
+            <div class="form-group">
+                <label for="regConfirm">Confirm password</label>
+                <input type="password" id="regConfirm" placeholder="Re-enter password" required />
+            </div>
+            <div class="form-error" id="registerError"></div>
+            <button type="submit" class="btn btn-block" id="registerBtn">Create account</button>
+        </form>
+
+        <div class="auth-note">
+            On registration a <b>profile</b>, a <b>customer record</b> and a
+            <b>savings account</b> are created automatically for you.
+        </div>
+    </div>
+
+    <div id="toast-container"></div>
+
+    <!-- Temporary diagnostics: show any script error on the login page -->
+    <script>
+        function showStartupError(msg) {
+            var el = document.getElementById("loginError");
+            if (el) el.textContent = "Startup error: " + msg;
+        }
+        window.addEventListener("error", function (e) {
+            showStartupError(e.message || String(e.error || "unknown script error"));
+        });
+        window.addEventListener("unhandledrejection", function (e) {
+            var r = e.reason;
+            showStartupError((r && (r.message || r.error_description)) || String(r || "unknown error"));
+        });
+    </script>
+
+    <!-- Supabase JS SDK (served locally by the backend) -->
+    <script src="vendor/supabase.js"></script>
+    <script src="js/config.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/common.js"></script>
+    <script src="js/index.js"></script>
+</body>
+</html>

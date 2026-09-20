@@ -32,6 +32,15 @@ if (!SUPABASE_URL || !SUPABASE_ANON_KEY) {
 const app = express();
 app.use(express.json());
 
+// Allow the Vercel-hosted frontend (a different origin) to call this API.
+app.use((req, res, next) => {
+  res.set("Access-Control-Allow-Origin", "*");
+  res.set("Access-Control-Allow-Methods", "GET, POST, PATCH, DELETE, OPTIONS");
+  res.set("Access-Control-Allow-Headers", "Content-Type, Authorization");
+  if (req.method === "OPTIONS") return res.sendStatus(204);
+  next();
+});
+
 // Supabase client used only for JWT verification (works with the public key).
 const anonClient = createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
   auth: { persistSession: false, autoRefreshToken: false, detectSessionInUrl: false },

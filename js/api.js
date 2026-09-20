@@ -16,8 +16,9 @@ async function api(path, options = {}) {
         const headers = Object.assign({}, options.headers || {});
         if (options.body !== undefined) headers["Content-Type"] = "application/json";
         if (token) headers["Authorization"] = "Bearer " + token;
-
-        const res = await fetch(path, Object.assign({}, options, {
+       
+        const API_URL = "https://bankmangementsystem.onrender.com";
+          const res = await fetch(path, Object.assign({}, options, {
             headers,
             body: options.body !== undefined ? JSON.stringify(options.body) : undefined,
         }));

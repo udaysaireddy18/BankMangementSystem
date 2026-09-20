@@ -10,8 +10,8 @@
 //  Paste both between the quotes below and save.
 // ============================================================================
 
-const SUPABASE_URL = "https://YOUR-PROJECT.supabase.co";
-const SUPABASE_ANON_KEY = "YOUR-ANON-PUBLIC-KEY";
+const SUPABASE_URL = "https://xzcoivlbvgbkavdagpxu.supabase.co";
+const SUPABASE_ANON_KEY = "sb_publishable_jruuHy3sWvpwuLmSTHWVgA_d1CHLK49";
 
 // NOTE: the UMD SDK already declares a global `supabase` (the SDK namespace),
 // so we must NOT use `const supabase = ...` here - that throws
